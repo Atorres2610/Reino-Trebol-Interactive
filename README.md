@@ -15,13 +15,15 @@ Debe contar con los siguientes programas y base de datos:
 
 Se abre la solución del proyecto con VisualStudio 2022 y se ejecuta con "CTRL + F5" o "F5", esto creará la base de datos y
 levantará el proyecto, se deben visualizar dos ventanas como se muestra en la siguiente imagen:
+3
 ![Imagen1](https://raw.githubusercontent.com/Atorres2610/Reino-Trebol-Interactive/master/ArchivosDocumentacion/Imagen1.png)
 
 En caso no se levantes los dos proyecto debe realizar lo siguientes pasos:
 
 	- Darle click derecho la solución, seleccionar "Propiedades"
 	- Aparecerá un recuadro donde debe seleccionar "Multipe startup proyects"
-	- En la columna "Action" debe de cambiar la opción de "None" a "Start" para el proyecto "ReinoTrebol.API" y "ReinoTrebol.Web"
+	- En la columna "Action" debe de cambiar la opción de "None" a "Start" 
+		para el proyecto "ReinoTrebol.API" y "ReinoTrebol.Web"
 	- Por último en aceptar
 
 ![Imagen2](https://raw.githubusercontent.com/Atorres2610/Reino-Trebol-Interactive/master/ArchivosDocumentacion/Imagen2.png)
