@@ -15,19 +15,23 @@ Debe contar con los siguientes programas y base de datos:
 
 Se abre la solución del proyecto con VisualStudio 2022 y se ejecuta con "CTRL + F5" o "F5", esto creará la base de datos y
 levantará el proyecto, se deben visualizar dos ventanas como se muestra en la siguiente imagen:
-3
-![Imagen1](https://raw.githubusercontent.com/Atorres2610/Reino-Trebol-Interactive/master/ArchivosDocumentacion/Imagen1.png)
+<br />
+
+<img src="https://raw.githubusercontent.com/Atorres2610/Reino-Trebol-Interactive/master/ArchivosDocumentacion/Imagen1.png" data-canonical-src="https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png" width="600">
 
 En caso no se levantes los dos proyecto debe realizar lo siguientes pasos:
 
 	- Darle click derecho la solución, seleccionar "Propiedades"
 	- Aparecerá un recuadro donde debe seleccionar "Multipe startup proyects"
-	- En la columna "Action" debe de cambiar la opción de "None" a "Start" 
-		para el proyecto "ReinoTrebol.API" y "ReinoTrebol.Web"
+	- En la columna "Action" debe de cambiar la opción de "None" a "Start" para el proyecto 
+		"ReinoTrebol.API" y "ReinoTrebol.Web"
 	- Por último en aceptar
+	
+También se puede guiar de las siguientes imágenes:
 
-![Imagen2](https://raw.githubusercontent.com/Atorres2610/Reino-Trebol-Interactive/master/ArchivosDocumentacion/Imagen2.png)
-![Imagen3](https://raw.githubusercontent.com/Atorres2610/Reino-Trebol-Interactive/master/ArchivosDocumentacion/Imagen3.png)
+<img src="https://raw.githubusercontent.com/Atorres2610/Reino-Trebol-Interactive/master/ArchivosDocumentacion/Imagen2.png" data-canonical-src="https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png" width="300">
+
+<img src="https://raw.githubusercontent.com/Atorres2610/Reino-Trebol-Interactive/master/ArchivosDocumentacion/Imagen3.png" data-canonical-src="https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png" width="600">
 
 ## Advertencia
 Antes de ejecutar el proyecto debe de cambiar la cadena de conexión en el archivo appsettings.json que se encuentra en la siguiente ruta:
