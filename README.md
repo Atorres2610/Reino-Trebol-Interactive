@@ -15,7 +15,7 @@ Debe contar con los siguientes programas y base de datos:
 
 Se abre la solución del proyecto con VisualStudio 2022 y se ejecuta con "CTRL + F5" o "F5", esto creará la base de datos y
 levantará el proyecto, se deben visualizar dos ventanas como se muestra en la siguiente imagen:
-![Imagen1](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+![Imagen1](/Atorres2610/Reino-Trebol-Interactive/blob/master/ArchivosDocumentacion/Imagen1.png?raw=true)
 
 En caso no se levantes los dos proyecto debe realizar lo siguientes pasos:
 
