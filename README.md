@@ -5,6 +5,7 @@ Es la resolución de un examen técnico para la empresa Interactive.
 1. [Inicio rápido](#inicio-rapido)
 2. [Advertencia](#advertencia)
 3. [Nota](#nota)
+4. [Licencia](#licencia)
 
 ## Inicio rápido
 Debe contar con los siguientes programas y base de datos:
@@ -42,3 +43,7 @@ Recuerde que debe ser una cadena de conexión válida de Postgresql.
 
 ## Nota
 El proyecto web no está terminado, solo puede avanzar cierta parte de la solicitud, como el aprobar, rechazar, eliminar, actualizar y listar, me faltó el poder crear una solicitud; pero el API si está completa.
+
+## Licencia
+
+[MIT](https://choosealicense.com/licenses/mit/)
