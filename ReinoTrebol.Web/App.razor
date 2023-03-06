@@ -1,0 +1,19 @@
+﻿<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <div class="h-100 d-flex flex-column justify-content-center align-items-center text-white"
+                 style="background-image: linear-gradient(to bottom right, #1FC5A8, #002e39);">
+                <div class="mx-2 text-center">
+                    <h2>Error 404</h2>
+                    <h5 role="alert" class="text-wrap">Lo siento, no hay nada en esta dirección. 😔</h5>
+                    <a href="/" class="btn btn-primary" style=""><b>Ir al inicio</b></a>
+                </div>
+            </div>
+        </LayoutView>
+    </NotFound>
+</Router>

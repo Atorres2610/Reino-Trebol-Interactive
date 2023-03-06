@@ -1,0 +1,47 @@
+﻿@typeparam Titem
+
+@if (MiLista is null)
+{
+    @if (Loading is null)
+    {
+        <ScreenLoading />
+    }
+    else
+    {
+        @Loading
+    }
+}
+else if (MiLista.Count == 0)
+{
+    @if (SinFilas is null)
+    {
+        <div class="align-items-center">
+            <p>No hay registros para mostrar.</p>
+        </div>
+    }
+    else
+    {
+        @SinFilas
+    }
+}
+else
+{
+    @Body
+}
+
+@code {
+    [Parameter]
+    public RenderFragment? Loading { get; set; }
+
+    [Parameter]
+    public RenderFragment? SinFilas { get; set; }
+
+    [Parameter]
+    [EditorRequired]
+    public RenderFragment Body { get; set; } = null!;
+
+
+    [Parameter]
+    [EditorRequired]
+    public List<Titem> MiLista { get; set; } = null!;
+}

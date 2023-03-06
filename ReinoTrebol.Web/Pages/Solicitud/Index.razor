@@ -1,0 +1,101 @@
+﻿@page "/solicitudes"
+@inject IGenericRepository genericRepository
+@inject ISweetAlertExtension sweetAlertExtension
+@using ReinoTrebol.Core.Business.Solicitud.ListarSolicitudes
+@using ReinoTrebol.Core.Entities
+@using ReinoTrebol.Core.Business.Solicitud.ActualizarStatusSolicitud
+
+<h3>Lista de solicitudes</h3>
+@*<a href="/solicitudes/enviar" class="btn btn-primary my-3">Enviar solicitud</a>*@
+
+<GenericList MiLista="solicitudes">
+    <Body>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Estudiante</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var solicitud in solicitudes!)
+                {
+                    <tr>
+                        <th scope="row">@solicitud.IdSolicitud</th>
+                        <td>@solicitud.Estudiante</td>
+                        <td>@solicitud.Estado</td>
+                        <td>
+                            <a class="btn btn-primary" href="/solicitudes/detalle/@solicitud.IdSolicitud">Detalle</a>
+                            @if (solicitud.IdEstado != (int)Estado.Estados.Aprobada)
+                            {
+                                <button type="button" class="btn btn-success mx-1" @onclick="()=>CambiarEstado(solicitud.IdSolicitud, (int)Estado.Estados.Aprobada)">Aprobar</button>
+                            }
+                            @if (solicitud.IdEstado != (int)Estado.Estados.Rechazada)
+                            {
+                                <button type="button" class="btn btn-warning mx-1" @onclick="()=>CambiarEstado(solicitud.IdSolicitud, (int)Estado.Estados.Rechazada)">Rechazar</button>
+                            }
+                            <button type="button" class="btn btn-danger mx-1" @onclick="()=>EliminarSolicitud(solicitud.IdSolicitud)">Eliminar</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </Body>
+</GenericList>
+
+@code {
+    public List<ListarSolicitudesResponse.SolicitudResponse>? solicitudes = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarSolicitudes();
+    }
+
+    async Task CargarSolicitudes()
+    {
+        var response = await genericRepository.Get<ListarSolicitudesResponse>("/solicitud/ListarSolicitudes", true);
+        if (response.Error)
+        {
+            await sweetAlertExtension.SweetOptionsDefault("Error inesperado", response.GetErrorMessage(), response.Error);
+            return;
+        }
+        solicitudes = response.Data?.Solicitudes;
+    }
+
+    async Task CambiarEstado(int idSolicitud, int idEstado)
+    {
+        string estado = (int)Estado.Estados.Aprobada == idEstado ? "aprobar" : "rechazar";
+        var result = await sweetAlertExtension.SweetOptionsAnswer("Confirmación", $"¿Estás segur@ de {estado} la solicitud?");
+        if (result.IsConfirmed)
+        {
+            var response = await genericRepository.Patch<object, ActualizarStatusSolicitudRequest>($"/solicitud/ActualizarStatusSolicitud/{idSolicitud}", new ActualizarStatusSolicitudRequest
+            {
+                IdEstado = idEstado
+            }, false);
+
+            if (response.Error)
+            {
+                await sweetAlertExtension.SweetOptionsDefault("Error inesperado", response.GetErrorMessage(), response.Error);
+                return;
+            }
+            await CargarSolicitudes();
+        }
+    }
+
+    async Task EliminarSolicitud(int idSolicitud)
+    {
+        var result = await sweetAlertExtension.SweetOptionsAnswer("Confirmación", $"¿Estás segur@ de eliminar la solicitud?");
+        if (result.IsConfirmed)
+        {
+            var response = await genericRepository.Delete<object>($"/solicitud/EliminarSolicitud/{idSolicitud}", false);
+            if (response.Error)
+            {
+                await sweetAlertExtension.SweetOptionsDefault("Error inesperado", response.GetErrorMessage(), response.Error);
+                return;
+            }
+            await CargarSolicitudes();
+        }
+    }
+}

@@ -1,0 +1,34 @@
+﻿<button class="@Class" type="@Type" @onclick="OnClickCallback" disabled="@ButtonDisabled">
+    @if (ButtonDisabled)
+    {
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="">Cargando...</span>
+    }
+    else
+    {
+        <span>@Text</span>
+    }
+</button>
+
+@code {
+    [Parameter]
+    public string Text { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Class { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Type { get; set; } = "button";
+
+    [Parameter]
+    public EventCallback EventCallbackClick { get; set; }
+
+    bool ButtonDisabled = false;
+
+    private async Task OnClickCallback()
+    {
+        ButtonDisabled = true;
+        await EventCallbackClick.InvokeAsync();
+        ButtonDisabled = false;
+    }
+}

@@ -1,0 +1,146 @@
+﻿@page "/solicitudes/detalle/{Id:int?}"
+@inject IGenericRepository genericRepository
+@inject ISweetAlertExtension sweetAlertExtension
+@inject NavigationManager navigationManager
+@using ReinoTrebol.Core.Business.Solicitud.ObtenerSolicitud
+@using ReinoTrebol.Core.Business.Solicitud.ActualizarSolicitud
+@using ReinoTrebol.Core.Business.AfinidadMagica.ListarAfinidades
+
+<h3>Detalle de la solicitud número @Id</h3>
+
+
+@if (solicitud is null)
+{
+    <ScreenLoading />
+}
+else
+{
+    <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+    <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <div class="container mt-3">
+            <h5>Datos del estudiante</h5>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="Nombre" class="form-label fw-bold">Nombre</label>
+                    <InputText class="form-control" @bind-Value="Request.Nombre" autocomplete="off" />
+                    <ValidationMessage For="@(()=> Request.Nombre)" />
+                </div>
+                <div class="col">
+                    <label for="Apellido" class="form-label fw-bold">Apellido</label>
+                    <InputText class="form-control" @bind-Value="Request.Apellido" autocomplete="off" />
+                    <ValidationMessage For="@(()=> Request.Apellido)" />
+                </div>
+                <div class="col">
+                    <label for="Edad" class="form-label fw-bold">Edad</label>
+                    <InputNumber class="form-control" @bind-Value="Request.Edad" autocomplete="off" />
+                    <ValidationMessage For="@(()=> Request.Edad)" />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="Identificacion" class="form-label fw-bold">Identificación</label>
+                    <InputText class="form-control" @bind-Value="Request.Identificacion" autocomplete="off" />
+                    <ValidationMessage For="@(()=> Request.Identificacion)" />
+                </div>
+                <div class="col">
+                    <label for="AfinidadMagica" class="form-label fw-bold">Afinidad Mágica</label>
+                    <InputSelect class="form-control" @bind-Value="Request.AfinidadMagicaId">
+                        @if (AfinidadesMagicas is null)
+                        {
+                            <ScreenLoading />
+                        }
+                        else
+                        {
+                            foreach (var afinidadMagica in AfinidadesMagicas!)
+                            {
+                                <option value="@afinidadMagica.IdAfinidadMagica">@afinidadMagica.Nombre</option>
+                            }
+                        }
+                    </InputSelect>
+                    <ValidationMessage For="@(()=> Request.AfinidadMagicaId)" />
+                </div>
+            </div>
+            <Button Class="btn btn-success" Type="submit" Text="Guardar cambios" />
+            <Button Class="btn btn-primary" EventCallbackClick="ReturnAction" Text="Regresar" />
+        </div>
+    </EditForm>
+}
+
+
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+    private EditContext editContext = null!;
+    private ObtenerSolicitudResponse.SolicitudResponse? solicitud;
+    private List<ListarAfinidadesResponse.AfinidadResponse>? AfinidadesMagicas;
+
+    public ActualizarSolicitudRequest Request { get; set; } = null!;
+    private bool FormIsSuccessfully;
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var responseSolicitud = await genericRepository.Get<ObtenerSolicitudResponse>($"/solicitud/ObtenerSolicitud/{Id}", true);
+        if (responseSolicitud.Error)
+        {
+            await sweetAlertExtension.SweetOptionsDefault("Error inesperado", responseSolicitud.GetErrorMessage(), responseSolicitud.Error);
+            return;
+        }
+
+        solicitud = responseSolicitud.Data?.Solicitud;
+
+        if (solicitud is not null)
+        {
+            Request = new()
+            {
+                AfinidadMagicaId = solicitud.IdAfinidadMagica,
+                Apellido = solicitud.ApellidoEstudiante,
+                Edad = solicitud.Edad,
+                Identificacion = solicitud.Identificacion,
+                Nombre = solicitud.NombreEstudiante
+            };
+            editContext = new(Request);
+        }
+
+        var responseAfinidadesMagicas = await genericRepository.Get<ListarAfinidadesResponse>($"/afinidadmagica/ListarAfinidades", true);
+        if (responseAfinidadesMagicas.Error)
+        {
+            await sweetAlertExtension.SweetOptionsDefault("Error inesperado", responseAfinidadesMagicas.GetErrorMessage(), responseAfinidadesMagicas.Error);
+            return;
+        }
+
+        AfinidadesMagicas = responseAfinidadesMagicas.Data?.AfinidadesMagicas;
+    }
+
+    private async Task OnValidSubmit()
+    {
+        var response = await genericRepository.Put<object, ActualizarSolicitudRequest?>($"/solicitud/ActualizarSolicitud/{Id}", Request, false);
+        if (response.Error)
+        {
+            await sweetAlertExtension.SweetOptionsDefault("Error inesperado", response.GetErrorMessage(), response.Error);
+            return;
+        }
+        ReturnAction();
+    }
+
+    private void ReturnAction()
+    {
+        FormIsSuccessfully = true;
+        navigationManager.NavigateTo("/solicitudes");
+    }
+
+    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
+    {
+        if (editContext.IsModified() && !FormIsSuccessfully)
+        {
+            var result = await sweetAlertExtension.SweetOptionsAnswer("Confirmación", "¿Deseas abandonar la página y perder los cambios?");
+            if (result.IsDismissed)
+            {
+                context.PreventNavigation();
+            }
+        }
+    }
+}
