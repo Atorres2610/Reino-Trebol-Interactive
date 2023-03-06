@@ -42,7 +42,7 @@ También se puede guiar de las siguientes imágenes:
 <img src="https://raw.githubusercontent.com/Atorres2610/Reino-Trebol-Interactive/master/ArchivosDocumentacion/Imagen3.png" data-canonical-src="https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png" width="600">
 
 ## Nota
-El proyecto web no está terminado, solo puede avanzar cierta parte de la solicitud, como el aprobar, rechazar, eliminar, actualizar y listar, me faltó el poder crear una solicitud; pero el API si está completa.
+El proyecto web no está terminado, solo pude avanzar cierta parte de la solicitud, como el aprobar, rechazar, eliminar, actualizar y listar, me faltó el poder crear una solicitud; pero el API si está completa.
 
 ## Licencia
 
