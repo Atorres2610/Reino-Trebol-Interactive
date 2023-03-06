@@ -2,10 +2,17 @@
 Es la resolución de un examen técnico para la empresa Interactive.
 
 ## Índice de contenido
-1. [Inicio rápido](#inicio-rapido)
-2. [Advertencia](#advertencia)
+1. [Advertencia](#advertencia)
+2. [Inicio rápido](#inicio-rapido)
 3. [Nota](#nota)
 4. [Licencia](#licencia)
+
+## Advertencia
+Antes de ejecutar el proyecto debe de cambiar la cadena de conexión en el archivo appsettings.json que se encuentra en la siguiente ruta:
+
+	- \Reino Trebol .NET\ReinoTrebol.API\appsettings.json
+
+Recuerde que debe ser una cadena de conexión válida de Postgresql.
 
 ## Inicio rápido
 Debe contar con los siguientes programas y base de datos:
@@ -33,13 +40,6 @@ También se puede guiar de las siguientes imágenes:
 <img src="https://raw.githubusercontent.com/Atorres2610/Reino-Trebol-Interactive/master/ArchivosDocumentacion/Imagen2.png" data-canonical-src="https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png" width="300">
 
 <img src="https://raw.githubusercontent.com/Atorres2610/Reino-Trebol-Interactive/master/ArchivosDocumentacion/Imagen3.png" data-canonical-src="https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png" width="600">
-
-## Advertencia
-Antes de ejecutar el proyecto debe de cambiar la cadena de conexión en el archivo appsettings.json que se encuentra en la siguiente ruta:
-
-	- \Reino Trebol .NET\ReinoTrebol.API\appsettings.json
-
-Recuerde que debe ser una cadena de conexión válida de Postgresql.
 
 ## Nota
 El proyecto web no está terminado, solo puede avanzar cierta parte de la solicitud, como el aprobar, rechazar, eliminar, actualizar y listar, me faltó el poder crear una solicitud; pero el API si está completa.
