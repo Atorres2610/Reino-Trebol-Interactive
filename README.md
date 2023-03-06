@@ -27,7 +27,7 @@ levantará el proyecto, se deben visualizar dos ventanas como se muestra en la s
 
 <img src="https://raw.githubusercontent.com/Atorres2610/Reino-Trebol-Interactive/master/ArchivosDocumentacion/Imagen1.png" data-canonical-src="https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png" width="600">
 
-En caso no se levantes los dos proyecto debe realizar lo siguientes pasos:
+En caso no se levanten los dos proyecto debe realizar lo siguientes pasos:
 
 	- Darle click derecho la solución, seleccionar "Propiedades"
 	- Aparecerá un recuadro donde debe seleccionar "Multipe startup proyects"
